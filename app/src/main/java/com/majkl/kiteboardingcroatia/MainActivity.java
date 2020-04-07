@@ -10,6 +10,7 @@ import android.util.Base64;
 import android.util.Log;
 
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        printKeyHash;
+        printKeyHash();
     }
 
     private void printKeyHash(){
@@ -30,8 +31,10 @@ public class MainActivity extends AppCompatActivity {
                 md.update(signature.toByteArray());
                 Log.d("KEYHASH", Base64.encodeToString(md.digest(),Base64.DEFAULT));
             }
-            
+
         }catch (PackageManager.NameNotFoundException e){
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
 

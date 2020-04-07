@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "185125286570",
+    "firebase_url": "https://kiteboarding-croatia.firebaseio.com",
+    "project_id": "kiteboarding-croatia",
+    "storage_bucket": "kiteboarding-croatia.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:185125286570:android:e84fb82e04f675911c16d3",
+        "android_client_info": {
+          "package_name": "com.majkl.kiteboardingcroatia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "185125286570-cgbpfo3o1n88dphclakone44gqb3vl6l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.majkl.kiteboardingcroatia",
+            "certificate_hash": "c780df6ed1530acf10b66dce5312ea319a67a26a"
+          }
+        },
+        {
+          "client_id": "185125286570-3ifue7had6os7okvg78a4kmrrugtvjng.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdRB3Z-tccJ26CKd7kliBzm10MV7ewrvs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "185125286570-3ifue7had6os7okvg78a4kmrrugtvjng.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
