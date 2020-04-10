@@ -33,6 +33,7 @@ dependencies {
     implementation 'com.facebook.android:account-kit-sdk:5.4.0'
     implementation 'com.jakewharton:butterknife:10.2.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
+    implementation 'com.google.firebase:firebase-firestore:21.4.1'
 
 
 }
