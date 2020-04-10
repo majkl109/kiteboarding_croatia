@@ -1,5 +1,6 @@
 package com.majkl.kiteboardingcroatia;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,14 +12,22 @@ import android.util.Base64;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.facebook.accountkit.AccessToken;
+import com.facebook.accountkit.AccountKit;
+import com.facebook.accountkit.AccountKitLoginResult;
 import com.facebook.accountkit.ui.AccountKitActivity;
 import com.facebook.accountkit.ui.AccountKitConfiguration;
 import com.facebook.accountkit.ui.LoginType;
-import com.google.android.gms.common.internal.service.Common;
+import com.majkl.kiteboardingcroatia.common.Common;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,17 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_login)
     void loginUser()
-    {...}
-
-    @OnClick(R.id.txt_skip)
-    void skipLogin()
     {
-        Intent intent = new Intent(this,HomeActivity.class);
-        intent.putExtra(Common.IS_LOGIN,false);
-        startActivity(intent);
-    }
-    {
-        final Intent intent = new Intent((this, AccountKitActivity.class);
+        final Intent intent = new Intent(this, AccountKitActivity.class);
         AccountKitConfiguration.AccountKitConfigurationBuilder configurationBuilder =
                 new AccountKitConfiguration.AccountKitConfigurationBuilder(LoginType.PHONE,
                         AccountKitActivity.ResponseType.TOKEN);
@@ -49,13 +49,51 @@ public class MainActivity extends AppCompatActivity {
                 configurationBuilder.build());
         startActivityForResult(intent,APP_REQUEST_CODE);
     }
+    @OnClick(R.id.txt_skip)
+    void skipLogin()
+    {
+        Intent intent = new Intent(this,HomeActivity.class);
+        intent.putExtra(Common.IS_LOGIN,false);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == APP_REQUEST_CODE)
+        {
+            AccountKitLoginResult loginResult = data.getParcelableExtra(AccountKitLoginResult.RESULT_KEY);
+            if(loginResult.getError() != null){
+                Toast.makeText(this,"" +loginResult.getError().getErrorType(), Toast.LENGTH_SHORT).show();
+            }else if(loginResult.wasCancelled()){
+                Toast.makeText(this,"Login cancelled",Toast.LENGTH_SHORT).show();
+            }else{
+                Intent intent = new Intent(this,HomeActivity.class);
+                intent.putExtra(Common.IS_LOGIN,false);
+                startActivity(intent);
+                finish();
+
+            }
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        printKeyHash();
+        AccessToken accessToken = AccountKit.getCurrentAccessToken();
+        if(accessToken != null){
+            Intent intent = new Intent(this,HomeActivity.class);
+            intent.putExtra(Common.IS_LOGIN,true);
+            startActivity(intent);
+            finish();
+
+        }else{
+
+        }  setContentView(R.layout.activity_main);
+        ButterKnife.bind(MainActivity.this);
+
+    printKeyHash();
     }
 
     private void printKeyHash(){
